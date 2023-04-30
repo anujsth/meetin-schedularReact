@@ -36,3 +36,30 @@
     transform: rotate(360deg);
   }
 }
+
+/* Hide the default scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Add custom scrollbar styles */
+::-webkit-scrollbar-track {
+  background-color: #edf2f7;
+  width: 1rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #1c75d4;
+  border-radius: 99px;
+}
+
+/* Apply scrollbar styles to an element */
+.my-element::-webkit-scrollbar-track {
+  background-color: #0579ec;
+  width: 2rem;
+}
+
+.my-element::-webkit-scrollbar-thumb {
+  background-color: #05203d;
+  border-radius: 999px;
+}

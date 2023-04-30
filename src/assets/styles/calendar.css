@@ -1,0 +1,17 @@
+.disabled-sunday {
+  color: darkgray;
+}
+
+.previous-date {
+  color: gray;
+}
+
+.react-calendar {
+  width: 100%;
+  height: 100%;
+}
+
+.option-style {
+  background-color: #064663;
+  color: bisque;
+}
