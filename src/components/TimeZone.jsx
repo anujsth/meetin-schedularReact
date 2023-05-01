@@ -12,6 +12,7 @@ const TimeZone = () => {
   const { allTimeZone, selectedTimeZone } = useSelector(
     (state) => state.timeZone
   );
+  let timezone = `${selectedTimeZone}`;
   const dispatch = useDispatch();
   const selectHandler = (e) => {
     dispatch(setSelectedTimeZone(e.target.value));
@@ -34,6 +35,7 @@ const TimeZone = () => {
           daynum,
           yearnum,
           hours,
+          timezone,
         })
       );
     });

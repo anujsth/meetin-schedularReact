@@ -11,6 +11,7 @@ const timezoneSlice = createSlice({
     selectedDayNum: " ",
     selectedYearNum: " ",
     hours: "",
+    timezone: "",
   },
   reducers: {
     setAllTimeZone: (state, action) => {
@@ -26,6 +27,7 @@ const timezoneSlice = createSlice({
       state.selectedDayNum = action.payload.daynum;
       state.selectedYearNum = action.payload.yearnum;
       state.hours = action.payload.hours;
+      state.timezone = action.payload.timezone;
     },
   },
 });

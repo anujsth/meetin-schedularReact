@@ -6,7 +6,6 @@ import { setUserInput } from "../redux/features/detailsSlice";
 
 const FormInput = () => {
   const { detail } = useParams();
-  const { timeZone } = useSelector((state) => state.timeZone.selectedTimeZone);
   const timeFormat = detail === "30min" ? 30 : 15;
   const [toggle, setToggle] = useState(false);
   const dispatch = useDispatch();
@@ -49,7 +48,6 @@ const FormInput = () => {
         guestEmail: input.guestEmail,
         additionalNote: input.additionalNote,
         timeFormat: timeFormat,
-        timezone: timeZone,
       })
     );
     navigate("/confirmationpage");

@@ -10,7 +10,6 @@ const TimeList = ({ twelveHour, twentyFourHour, time }) => {
     selectedMonth,
     selectedDayNum,
     selectedYearNum,
-
     hours,
   } = useSelector((state) => state.timeZone);
   const [toggleHr, setToggleHr] = useState(false);
@@ -55,13 +54,28 @@ const TimeList = ({ twelveHour, twentyFourHour, time }) => {
     }
   }, [selectedDate]);
 
+  function convertTo12HrFormat(times) {
+    const result = [];
+    for (let i = 0; i < times.length; i++) {
+      const time = times[i];
+      const [hour, minute] = time.split(":");
+      let formattedHour = hour % 12 || 12;
+      const formattedTime = `${formattedHour}:${minute} ${
+        hour >= 12 ? "PM" : "AM"
+      }`;
+      result.push(formattedTime);
+    }
+    return result;
+  }
+
   useEffect(() => {
     if (newArray) {
-      setTwelveFormatArray(
-        newArray.map((item, index) => {
-          return twelveHour[index];
-        })
-      );
+      // setTwelveFormatArray(
+      //   newArray.map((item, index) => {
+      //     return twelveHour[index];
+      //   })
+      // );
+      setTwelveFormatArray(convertTo12HrFormat(newArray));
     } else {
       setTwelveFormatArray(null);
     }

@@ -13,9 +13,6 @@ const SideProfile = () => {
   const { detail } = useParams();
   const { id } = useParams();
   const location = `${window.location.href}`;
-  console.log(location);
-  console.log(detail);
-  console.log(id);
   const { time, day, month, yearNum, dayNum } = useSelector(
     (state) => state.details.yourDetail
   );

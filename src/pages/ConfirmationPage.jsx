@@ -8,14 +8,10 @@ import {
 } from "../redux/features/rescheduleSlice";
 
 const ConfirmationPage = () => {
-  const {
-    timeFormat,
-    userName,
-    userEmail,
-    guestEmail,
-    additionalNote,
-    timezone,
-  } = useSelector((state) => state.details);
+  const { timeFormat, userName, userEmail, guestEmail, additionalNote } =
+    useSelector((state) => state.details);
+  const { selectedTimeZone } = useSelector((state) => state.timeZone);
+
   const dispatch = useDispatch();
   const { time, day, month, yearNum, dayNum } = useSelector(
     (state) => state.details.yourDetail
@@ -24,12 +20,13 @@ const ConfirmationPage = () => {
   const resetHandler = () => {
     dispatch(setRescheduleTrue());
   };
+
   return (
-    <div className="flex justify-center mt-[6rem] mx-[8rem] h-[38rem] ">
+    <div className="flex justify-center mt-[4rem] mx-[8rem] h-[40rem] ">
       <div
         className={`px-6 w-[50%] bg-[#064663] h-full flex flex-col rounded-xl group transition-all duration-200 `}
       >
-        <div className="flex flex-col justify-center h-[35%] items-center border-b-2">
+        <div className="flex flex-col justify-center h-[30%] items-center border-b-2">
           <div className="flex flex-col justify-center h-full items-center">
             <AiOutlineFileDone className="text-6xl text-green-600" />
             <p className="mt-4 text-white font-bold text-lg">
@@ -41,7 +38,7 @@ const ConfirmationPage = () => {
             </p>
           </div>
         </div>
-        <div className="w-full h-[50%] border-b-2">
+        <div className="w-full h-[54%] border-b-2">
           <div className="flex w-full flex-col items-start mt-6  ">
             <div className="flex items-center">
               <p className="text-white font-bold text-xl w-[134px]">
@@ -50,11 +47,11 @@ const ConfirmationPage = () => {
               <BsArrowBarRight className="text-green-500 text-4xl " />
               <p className="text-amber-100 text-lg">{timeFormat} min meeting</p>
             </div>
-            <div className="flex items-center">
-              <p className=" w-[134px] text-white font-bold text-xl ">When?</p>
+            <div className="flex items-center mt-2 mb-2">
+              <p className=" w-[134px]  text-white font-bold text-xl ">When?</p>
               <BsArrowBarRight className="text-green-500 text-4xl " />
-              <p className="text-amber-100 text-lg">
-                {dayNum},{day},{month}, {yearNum} | {time} | {timezone}
+              <p className="text-amber-100 text-lg  w-[435px]">
+                {dayNum},{day},{month}, {yearNum} | {time} | {selectedTimeZone}
               </p>
             </div>
             <div className="flex items-center">
@@ -69,8 +66,8 @@ const ConfirmationPage = () => {
                 Participants?
               </p>
               <BsArrowBarRight className="text-green-500 text-4xl " />
-              <p className="text-amber-100 text-lg">
-                {userEmail} {guestEmail && "Guest" - guestEmail}
+              <p className="text-amber-100 text-lg w-[435px]">
+                {userEmail} {guestEmail ? `|| Guest -> ${guestEmail}` : ""}
               </p>
             </div>
             <div className="flex items-center">
@@ -83,13 +80,13 @@ const ConfirmationPage = () => {
                 Additional Notes
               </p>
               <BsArrowBarRight className="text-green-500 text-4xl" />
-              <p className="text-amber-100 text-lg w-[340px]  overflow-x-hidden flex flex-wrap">
+              <p className="text-amber-100 text-lg w-[435px]  overflow-x-hidden flex flex-wrap">
                 {additionalNote}
               </p>
             </div>
           </div>
         </div>
-        <div className="w-full flex flex-row justify-center pt-5">
+        <div className="w-full flex flex-row justify-center pt-3 ">
           <p className="text-white text-lg flex ">
             Need to make Changes?{" "}
             <Link
@@ -100,7 +97,7 @@ const ConfirmationPage = () => {
               Reschedule
             </Link>{" "}
             or{" "}
-            <div>
+            <p>
               <Link
                 to="/cancelpage"
                 onClick={() => dispatch(setRescheduleFalse())}
@@ -108,7 +105,7 @@ const ConfirmationPage = () => {
               >
                 Cancel
               </Link>
-            </div>
+            </p>
           </p>
         </div>
       </div>
