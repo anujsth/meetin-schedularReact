@@ -12,6 +12,8 @@ import { setFormerDate, setNewDate } from "../redux/features/rescheduleSlice";
 const SideProfile = () => {
   const { detail } = useParams();
   const { id } = useParams();
+  const location = `${window.location.href}`;
+  console.log(location);
   console.log(detail);
   console.log(id);
   const { time, day, month, yearNum, dayNum } = useSelector(
@@ -33,7 +35,12 @@ const SideProfile = () => {
       <img src={dp} className="h-[4rem] w-[6rem] rounded-full " />
       <p className="text-white pt-2">Anuj Shrestha</p>
       <p className="text-gray-300 pt-1 text-xl font-medium">
-        {id || detail === "30min" ? "30 Min Meeting" : "15 Min Meeting"}
+        {location == "http://localhost:3000/30min"
+          ? id === "30min" && "30 Min Meeting"
+          : id === "15min" && "15 Min Meeting"}
+        {location == "http://localhost:3000/detailpage/30min"
+          ? detail === "30min" && "30 Min Meeting"
+          : detail === "15min" && "15 Min Meeting"}
         {/* {detail==undefined && detail === "30min" ? "30 Min Meeting" : "15 Min Meeting"} */}
       </p>
       <div className="w-[70%]  mt-6 text-lg">
@@ -44,7 +51,12 @@ const SideProfile = () => {
         <div className="flex items-center">
           <IoIosTime className="text-gray-300" />
           <p className="ml-3 text-gray-300">
-            {id || detail === "30min" ? "30 minutes" : "15 minutes"}
+            {location == "http://localhost:3000/30min"
+              ? id === "30min" && "30 Min Meeting"
+              : id === "15min" && "15 Min Meeting"}
+            {location == "http://localhost:3000/detailpage/30min"
+              ? detail === "30min" && "30 Min Meeting"
+              : detail === "15min" && "15 Min Meeting"}
           </p>
         </div>
         {detail ? (
