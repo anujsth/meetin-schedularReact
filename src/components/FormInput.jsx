@@ -5,6 +5,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { setUserInput } from "../redux/features/detailsSlice";
 
 const FormInput = () => {
+  const { rescheduleData } = useSelector((state) => state.reschedule);
+  const { userName, userEmail } = useSelector((state) => state.details);
   const { detail } = useParams();
   const timeFormat = detail === "30min" ? 30 : 15;
   const [toggle, setToggle] = useState(false);
@@ -58,23 +60,43 @@ const FormInput = () => {
       <form className="flex flex-col" onSubmit={submitHandler}>
         <div className="mb-2">
           <p className="text-white mb-2">Your Name</p>
-          <input
-            required
-            onChange={inputName}
-            placeholder="Eg: Binladin Osama"
-            type="text"
-            className=" text-white w-full border-gray-200 h-[2.7rem] bg-transparent border-2 px-[1rem] rounded"
-          />
+          {rescheduleData ? (
+            <input
+              value={userName}
+              disabled
+              placeholder="Eg: Binladin Osama"
+              type="text"
+              className="bg-transparent cursor-not-allowed text-red-900 w-full border-gray-200 h-[2.7rem]  border-2 px-[1rem] rounded"
+            />
+          ) : (
+            <input
+              required
+              onChange={inputName}
+              placeholder="Eg: Binladin Osama"
+              type="text"
+              className=" text-white w-full border-gray-200 h-[2.7rem] bg-transparent border-2 px-[1rem] rounded"
+            />
+          )}
         </div>
         <div className="mb-2">
           <p className="text-white mb-2">Email address</p>
-          <input
-            required
-            onChange={inputUserEmail}
-            placeholder="Eg: Your@example.com"
-            type="email"
-            className=" text-white w-full border-gray-200 h-[2.7rem] bg-transparent border-2 px-[1rem] rounded"
-          />
+          {rescheduleData ? (
+            <input
+              disabled
+              value={userEmail}
+              placeholder="Eg: Your@example.com"
+              type="email"
+              className=" cursor-not-allowed text-red-900 w-full border-gray-200 h-[2.7rem] bg-transparent border-2 px-[1rem] rounded"
+            />
+          ) : (
+            <input
+              required
+              onChange={inputUserEmail}
+              placeholder="Eg: Your@example.com"
+              type="email"
+              className=" text-white w-full border-gray-200 h-[2.7rem] bg-transparent border-2 px-[1rem] rounded"
+            />
+          )}
         </div>
         {toggle && (
           <div className="mb-2">
