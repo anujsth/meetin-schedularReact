@@ -3,10 +3,14 @@ import { BsFillPersonPlusFill, BsPersonDashFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { setUserInput } from "../redux/features/detailsSlice";
+import { setRescheduleFalse } from "../redux/features/rescheduleSlice";
+import { setAdditionalNote } from "../redux/features/detailsSlice";
 
 const FormInput = () => {
   const { rescheduleData } = useSelector((state) => state.reschedule);
-  const { userName, userEmail } = useSelector((state) => state.details);
+  const { userName, userEmail, guestEmail } = useSelector(
+    (state) => state.details
+  );
   const { detail } = useParams();
   const timeFormat = detail === "30min" ? 30 : 15;
   const [toggle, setToggle] = useState(false);
@@ -17,7 +21,7 @@ const FormInput = () => {
     guestEmail: "",
     additionalNote: "",
   });
-  const inputUser = useSelector((state) => state.details);
+  // const inputUser = useSelector((state) => state.details);
   const inputName = (event) => {
     return setInput((prevState) => {
       return { ...prevState, userName: event.target.value };
@@ -43,15 +47,18 @@ const FormInput = () => {
   const submitHandler = (event) => {
     event.preventDefault();
 
-    dispatch(
-      setUserInput({
-        userName: input.userName,
-        userEmail: input.userEmail,
-        guestEmail: input.guestEmail,
-        additionalNote: input.additionalNote,
-        timeFormat: timeFormat,
-      })
-    );
+    !rescheduleData &&
+      dispatch(
+        setUserInput({
+          userName: input.userName,
+          userEmail: input.userEmail,
+          guestEmail: input.guestEmail,
+          // additionalNote: input.additionalNote,
+          timeFormat: timeFormat,
+        })
+      );
+    dispatch(setAdditionalNote(input.additionalNote));
+
     navigate("/confirmationpage");
   };
 
@@ -63,15 +70,17 @@ const FormInput = () => {
           {rescheduleData ? (
             <input
               value={userName}
+              onChange={inputName}
               disabled
               placeholder="Eg: Binladin Osama"
               type="text"
-              className="bg-transparent cursor-not-allowed text-red-900 w-full border-gray-200 h-[2.7rem]  border-2 px-[1rem] rounded"
+              className="bg-transparent cursor-not-allowed text-red-500 w-full border-gray-200 h-[2.7rem]  border-2 px-[1rem] rounded"
             />
           ) : (
             <input
               required
               onChange={inputName}
+              // value={input.userName}
               placeholder="Eg: Binladin Osama"
               type="text"
               className=" text-white w-full border-gray-200 h-[2.7rem] bg-transparent border-2 px-[1rem] rounded"
@@ -86,13 +95,14 @@ const FormInput = () => {
               value={userEmail}
               placeholder="Eg: Your@example.com"
               type="email"
-              className=" cursor-not-allowed text-red-900 w-full border-gray-200 h-[2.7rem] bg-transparent border-2 px-[1rem] rounded"
+              className=" cursor-not-allowed text-red-500 w-full border-gray-200 h-[2.7rem] bg-transparent border-2 px-[1rem] rounded"
             />
           ) : (
             <input
               required
               onChange={inputUserEmail}
               placeholder="Eg: Your@example.com"
+              // value={input.userEmail}
               type="email"
               className=" text-white w-full border-gray-200 h-[2.7rem] bg-transparent border-2 px-[1rem] rounded"
             />
@@ -101,12 +111,23 @@ const FormInput = () => {
         {toggle && (
           <div className="mb-2">
             <p className="text-white mb-2">Guests</p>
-            <input
-              onChange={inputGuestEmail}
-              placeholder="Eg: Guest@gmail.com"
-              type="email"
-              className=" text-white w-full border-gray-200 h-[2.7rem] bg-transparent border-2 px-[1rem] rounded"
-            />
+
+            {rescheduleData ? (
+              <input
+                value={guestEmail}
+                placeholder="Eg: Guest@gmail.com"
+                disabled
+                type="email"
+                className=" text-red-500 cursor-not-allowed w-full border-gray-200 h-[2.7rem] bg-transparent border-2 px-[1rem] rounded"
+              />
+            ) : (
+              <input
+                onChange={inputGuestEmail}
+                placeholder="Eg: Guest@gmail.com"
+                type="email"
+                className=" text-white w-full border-gray-200 h-[2.7rem] bg-transparent border-2 px-[1rem] rounded"
+              />
+            )}
           </div>
         )}
         <div className="mb-2">
@@ -134,6 +155,7 @@ const FormInput = () => {
           <div className="flex items-center">
             <Link
               to="/"
+              onClick={() => dispatch(setRescheduleFalse())}
               className="bg-white px-2 py-1 rounded mr-2 transition-all hover:scale-105"
             >
               cancel

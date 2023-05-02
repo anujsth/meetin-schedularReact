@@ -18,8 +18,8 @@ const store = configureStore({
     timeZone: timeZoneReducer,
     details: persistReducer(persistConfig, detailsReducer),
     reschedule: reshceduleReducer,
-    middleware: [thunk],
   },
+  middleware: [thunk],
 });
 
 export default store;

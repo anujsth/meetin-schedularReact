@@ -12,6 +12,7 @@ const TimeList = ({ twelveHour, twentyFourHour, time }) => {
     selectedYearNum,
     hours,
   } = useSelector((state) => state.timeZone);
+  console.log(time);
   const [toggleHr, setToggleHr] = useState(false);
   const currentDate = new Date();
   const [newArray, setNewArray] = useState(null);
@@ -118,7 +119,7 @@ const TimeList = ({ twelveHour, twentyFourHour, time }) => {
               </div>
             );
           })}
-        {time === "thirty" && toggleHr
+        {(time === "thirty" || time === "fifteen") && toggleHr
           ? newArray !== null &&
             newArray.map((item, id) => {
               return (

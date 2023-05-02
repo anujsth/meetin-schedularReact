@@ -29,7 +29,7 @@ const detailsSlice = createSlice({
       state.userName = action.payload.userName;
       state.userEmail = action.payload.userEmail;
       state.guestEmail = action.payload.guestEmail;
-      state.additionalNote = action.payload.additionalNote;
+      // state.additionalNote = action.payload.additionalNote;
       state.timeFormat = action.payload.timeFormat;
       state.timezone = action.payload.timezone;
     },
@@ -46,8 +46,12 @@ const detailsSlice = createSlice({
       state.timeFormat = "";
       state.timezone = "";
     },
+    setAdditionalNote: (state, action) => {
+      state.additionalNote = action.payload;
+    },
   },
 });
 
-export const { setDetails, setUserInput } = detailsSlice.actions;
+export const { setDetails, setUserInput, setAdditionalNote } =
+  detailsSlice.actions;
 export default detailsSlice.reducer;
